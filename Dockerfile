@@ -25,13 +25,17 @@ RUN rm /tmp/chromedriver.zip
 # Set display port as an environment variable
 ENV DISPLAY=:99
 
+EXPOSE 5000
+
 # Getting and running application
 COPY . /app
-
 WORKDIR /app
 
 RUN pip install --upgrade pip
 
 RUN pip install -r requirements.txt
 
-CMD ["python", "./app.py"]
+ENV ROUTER_URL http://192.168.178.1
+ENV ROUTER_PASSWORD yourpassword
+
+CMD [ "python3", "-m" , "flask", "run", "--host=0.0.0.0"]
