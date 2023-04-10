@@ -1,8 +1,8 @@
-from apscheduler.schedulers.background import BackgroundScheduler
-from flask import Flask
 from Scrapper import Scrapper
 import os
-from datetime import datetime
+
+# import chromedriver_autoinstaller
+# chromedriver_autoinstaller.install()
 
 def scrap_internal():
     router_url = os.getenv('ROUTER_URL')
@@ -19,24 +19,5 @@ def scrap_internal():
     scrapper.run()
     print('=' * 10)
 
-def scrap_schedule():
-    now = datetime.now()
-    print('Scheduled run for scrapping on: ', now)
-    scrap_internal()
-
-sched = BackgroundScheduler(daemon=True)
-sched.add_job(scrap_schedule,'interval',weeks = 4)
-sched.start()
-scrap_internal()
-
-app = Flask(__name__)
-
-@app.route("/restart")
-def restart_api():
-    now = datetime.now()
-    print('Restarting from api at: ', now)
-    scrap_internal()
-    return "Restarted"
-
 if __name__ == "__main__":
-    app.run()
+    scrap_internal()

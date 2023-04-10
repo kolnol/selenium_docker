@@ -24,15 +24,13 @@ class Scrapper:
     def setup_driver(self):
         chrome_options = self.set_chrome_options()
         driver = webdriver.Chrome(options=chrome_options)
-        driver.set_window_size(800, 600)
+        driver.set_window_size(1024, 768)
         return driver
 
     # TODO adjust to own router
     def scrap_out_of_it(self, driver):
         client = RouterClient(driver, self.router_url)
         client.login(self.router_password) \
-            .open_private_network() \
-            .open_management_submenu() \
             .open_factory_reset() \
             .click_reboot()
 
