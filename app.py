@@ -27,6 +27,7 @@ def scrap_schedule():
 sched = BackgroundScheduler(daemon=True)
 sched.add_job(scrap_schedule,'interval',weeks = 4)
 sched.start()
+scrap_internal()
 
 app = Flask(__name__)
 

@@ -30,10 +30,13 @@ class Scrapper:
     # TODO adjust to own router
     def scrap_out_of_it(self, driver):
         client = RouterClient(driver, self.router_url)
-        title = client \
-                    .login(self.router_password) \
-                    .get_page_title()
-        print(title)
+        client.login(self.router_password) \
+            .open_private_network() \
+            .open_management_submenu() \
+            .open_factory_reset() \
+            .click_reboot()
+
+        print('Kurva is restarting...')
 
     def run(self):
         try:
